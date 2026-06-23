@@ -87,13 +87,13 @@ import os
 
 In `index.py`:
 
-- `MARGIN = 10` → pixel offset for label position
-- `FONT_SIZE = 1` → OpenCV label font scale
-- `FONT_THICKNESS = 1` → label stroke thickness
-- `HANDEDNESS_TEXT_COLOR = (88, 205, 54)` → BGR color for label text
-- `num_hands = 2` (inside `HandLandmarkerOptions`) → maximum hands to detect
-- `model_asset_path = 'hand_landmarker.task'` → path to landmarker model file
-- `VideoCapture("video1.mp4")` → input source video file
+- `MARGIN = 10`: pixel offset for label position
+- `FONT_SIZE = 1`: OpenCV label font scale
+- `FONT_THICKNESS = 1`: label stroke thickness
+- `HANDEDNESS_TEXT_COLOR = (88, 205, 54)`: BGR color for label text
+- `num_hands = 2` (inside `HandLandmarkerOptions`): maximum hands to detect
+- `model_asset_path = 'hand_landmarker.task'`: path to landmarker model file
+- `VideoCapture("video1.mp4")`: input source video file
 
 ---
 
@@ -104,7 +104,7 @@ You can tune behavior by editing `index.py`:
 - **Detect more/fewer hands**
   - Change `num_hands=2`
 - **Use webcam instead of file**
-  - Replace `cv2.VideoCapture("video1.mp4")` with `cv2.VideoCapture(0)` (`0` = default webcam device index)
+  - Replace `cv2.VideoCapture("video1.mp4")` with `cv2.VideoCapture(0)` (`0` is an integer default webcam device index)
 - **Change label appearance**
   - Update `FONT_SIZE`, `FONT_THICKNESS`, `HANDEDNESS_TEXT_COLOR`
 - **Change model path**
