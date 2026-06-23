@@ -104,7 +104,7 @@ You can tune behavior by editing `index.py`:
 - **Detect more/fewer hands**
   - Change `num_hands=2`
 - **Use webcam instead of file**
-  - In the existing repository file `index.py`, replace `cv2.VideoCapture("video1.mp4")` with `cv2.VideoCapture(0)`.
+  - In `index.py`, replace `cv2.VideoCapture("video1.mp4")` with `cv2.VideoCapture(0)`.
   - `0` is commonly the default camera index; try `1` or `2` if needed on your system.
 - **Change label appearance**
   - Update `FONT_SIZE`, `FONT_THICKNESS`, `HANDEDNESS_TEXT_COLOR`
@@ -120,7 +120,7 @@ python index.py
 ```
 
 What you should see:
-- A window titled **Image** (this is the exact current title in `index.py`)
+- A window titled **Image**
 - Hand landmarks and hand-connection lines over detected hands
 - Left/Right handedness labels
 - Exit by pressing **Esc**
