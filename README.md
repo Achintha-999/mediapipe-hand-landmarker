@@ -104,7 +104,7 @@ You can tune behavior by editing `index.py`:
 - **Detect more/fewer hands**
   - Change `num_hands=2`
 - **Use webcam instead of file**
-  - Replace `cv2.VideoCapture("video1.mp4")` with `cv2.VideoCapture(0)` (`0` is an integer default webcam device index)
+  - Replace `cv2.VideoCapture("video1.mp4")` with `cv2.VideoCapture(0)` (default webcam device index)
 - **Change label appearance**
   - Update `FONT_SIZE`, `FONT_THICKNESS`, `HANDEDNESS_TEXT_COLOR`
 - **Change model path**
@@ -160,7 +160,7 @@ When a hand is visible in the input video:
 - This is a simple, educational baseline implementation.
 - The script currently processes a local video file frame-by-frame.
 - For production apps, consider adding:
-  - frame-read safety checks (`ret` validation)
+  - frame-read safety checks (validate the `ret` boolean returned by `cap.read()`)
   - confidence thresholds and error handling
   - CLI arguments for model/video paths
 
