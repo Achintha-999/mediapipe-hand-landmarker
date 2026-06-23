@@ -38,7 +38,7 @@ From the project root:
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate   # On Windows: .venv\\Scripts\\activate
+source .venv/bin/activate   # On Windows: .venv\Scripts\activate
 pip install --upgrade pip
 pip install mediapipe opencv-python numpy
 ```
@@ -104,7 +104,7 @@ You can tune behavior by editing `index.py`:
 - **Detect more/fewer hands**
   - Change `num_hands=2`
 - **Use webcam instead of file**
-  - Replace `cv2.VideoCapture("video1.mp4")` with `cv2.VideoCapture(0)`
+  - Replace `cv2.VideoCapture("video1.mp4")` with `cv2.VideoCapture(0)` (`0` = default webcam device index)
 - **Change label appearance**
   - Update `FONT_SIZE`, `FONT_THICKNESS`, `HANDEDNESS_TEXT_COLOR`
 - **Change model path**
@@ -178,4 +178,3 @@ When a hand is visible in the input video:
 ## 🤝 Contributing
 
 Feel free to open an issue or submit a PR to improve performance, robustness, or usability.
-
