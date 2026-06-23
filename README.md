@@ -18,7 +18,7 @@ Current entry point: `index.py`
 
 ## 🧰 Requirements / Prerequisites
 
-- Python version supported by your installed `mediapipe` release (commonly Python **3.9–3.12**)
+- Python version supported by your installed `mediapipe` release (check the package release notes for your environment)
 - OS with GUI/video display support (for `cv2.imshow`)
 - Project files present in the same folder:
   - `index.py`
@@ -160,7 +160,7 @@ When a hand is visible in the input video:
 
 - This is a simple, educational baseline implementation.
 - The script currently processes a local video file frame-by-frame.
-- ⚠️ Known limitation: the script assumes successful frame reads and may stop with an error if the input is invalid, unreadable, or ends unexpectedly.
+- ⚠️ Known limitation: the script assumes successful frame reads and may stop with an OpenCV `cvtColor` error if the input is invalid, unreadable, or ends unexpectedly.
 - For production apps, consider adding:
   - graceful frame-read failure handling when `ret` is `False`
   - confidence thresholds and error handling
