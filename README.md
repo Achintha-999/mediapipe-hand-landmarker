@@ -160,7 +160,7 @@ When a hand is visible in the input video:
 
 - This is a simple, educational baseline implementation.
 - The script currently processes a local video file frame-by-frame.
-- ⚠️ Known limitation: the script assumes successful frame reads and may stop with an error if the input is invalid, unreachable, or ends unexpectedly.
+- ⚠️ Known limitation: the script assumes successful frame reads and may stop with an error if the input is invalid, unreadable, or ends unexpectedly.
 - For production apps, consider adding:
   - graceful frame-read failure handling when `ret` is `False`
   - confidence thresholds and error handling
