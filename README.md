@@ -18,7 +18,7 @@ Current entry point: `index.py`
 
 ## 🧰 Requirements / Prerequisites
 
-- Python **3.9+** (recommended)
+- Python version supported by your installed `mediapipe` release (commonly Python **3.9–3.12**)
 - OS with GUI/video display support (for `cv2.imshow`)
 - Project files present in the same folder:
   - `index.py`
@@ -104,7 +104,7 @@ You can tune behavior by editing `index.py`:
 - **Detect more/fewer hands**
   - Change `num_hands=2`
 - **Use webcam instead of file**
-  - Replace `cv2.VideoCapture("video1.mp4")` with `cv2.VideoCapture(0)` (default webcam device index)
+  - Replace `cv2.VideoCapture("video1.mp4")` with `cv2.VideoCapture(0)` (index `0` is commonly the default camera, but this can vary by system)
 - **Change label appearance**
   - Update `FONT_SIZE`, `FONT_THICKNESS`, `HANDEDNESS_TEXT_COLOR`
 - **Change model path**
@@ -119,7 +119,7 @@ python index.py
 ```
 
 What you should see:
-- A window titled **Image**
+- A window titled **Image** (this is the exact current title in `index.py`)
 - Hand landmarks and hand-connection lines over detected hands
 - Left/Right handedness labels
 - Exit by pressing **Esc**
@@ -159,6 +159,7 @@ When a hand is visible in the input video:
 
 - This is a simple, educational baseline implementation.
 - The script currently processes a local video file frame-by-frame.
+- Current limitation: frame-read success (`ret` from `cap.read()`) is not checked before frame conversion.
 - For production apps, consider adding:
   - frame-read safety checks (validate the `ret` boolean returned by `cap.read()`)
   - confidence thresholds and error handling
