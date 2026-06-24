@@ -1,51 +1,98 @@
-# ✋ Mediapipe Hand Landmarker
+# ✋🤖 MediaPipe Hand Landmarker (Python + OpenCV)
 
-A beginner-friendly Python project for **detecting and drawing hand landmarks** on video frames using **MediaPipe Tasks** and **OpenCV**.
+<p align="center">
+  <img alt="Python" src="https://img.shields.io/badge/Python-3.x-blue?logo=python">
+  <img alt="MediaPipe" src="https://img.shields.io/badge/MediaPipe-Tasks-orange">
+  <img alt="OpenCV" src="https://img.shields.io/badge/OpenCV-Computer%20Vision-green?logo=opencv">
+  <img alt="Status" src="https://img.shields.io/badge/Status-Beginner%20Friendly-success">
+</p>
+
+A beginner-friendly computer vision project that detects and draws **hand landmarks** from a video using **MediaPipe Tasks** and **OpenCV**.  
+It also labels each detected hand as **Left** or **Right** in real time.
+
+---
+
+## 🌟 Highlights
+
+✅ Detects up to **2 hands** per frame  
+✅ Draws **21 keypoints** and hand connection lines  
+✅ Displays **handedness labels** (*Left / Right*)  
+✅ Works with a local video file (`video1.mp4`)  
+✅ Easy to customize and extend
 
 ---
 
 ## 📌 Project Overview
 
-This repository demonstrates how to:
-- load the MediaPipe Hand Landmarker model (`hand_landmarker.task`)
-- run hand landmark detection on each frame of a video (`video1.mp4`)
-- draw hand keypoints/connections and handedness labels (Left/Right)
-- display the annotated result in real time
+This project demonstrates a complete hand-landmark pipeline:
 
-Current entry point: `index.py`
+1. Load MediaPipe hand landmarker model (`hand_landmarker.task`)
+2. Read frames from video (`video1.mp4`)
+3. Run hand landmark detection
+4. Draw landmarks + connection graph
+5. Render handedness label near each hand
+6. Show live annotated output window
+
+> **Entry point:** `index.py`
 
 ---
 
-## 🧰 Requirements / Prerequisites
+## 🧠 What Are Hand Landmarks?
 
-- Python version supported by your installed `mediapipe` release (check the package release notes for your environment)
-- OS with GUI/video display support (for `cv2.imshow`)
-- Project files present in the same folder:
+MediaPipe detects a hand as a set of **21 3D landmarks** (x, y, z) representing key joints and finger tips.  
+These points can be used for:
+- gesture recognition ✌️
+- sign language projects 🤟
+- HCI / touchless interfaces 🖐️
+- motion analytics 📊
+- AR/VR interactions 🥽
+
+---
+
+## 🗂️ Repository Structure
+
+```text
+mediapipe-hand-landmarker/
+├── index.py                  # Main script
+├── hand_landmarker.task      # MediaPipe model file
+├── video1.mp4                # Input test video
+├── hand.jpg                  # Sample image asset
+└── README.md
+```
+
+---
+
+## 🧰 Requirements
+
+- **Python** version compatible with your installed `mediapipe`
+- Desktop/GUI environment (required for `cv2.imshow`)
+- Required files in project root:
   - `index.py`
   - `hand_landmarker.task`
   - `video1.mp4`
 
-Python libraries used:
+### ���� Python Dependencies
+
 - `mediapipe`
 - `opencv-python`
 - `numpy`
 
 ---
 
-## ⚙️ Installation / Setup
+## ⚙️ Installation & Setup
 
 From the project root:
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate   # On Windows: .venv\Scripts\activate
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install --upgrade pip
 pip install mediapipe opencv-python numpy
 ```
 
 ---
 
-## 📥 Import Libraries (used in this project)
+## 📥 Imports Used
 
 ```python
 import cv2
@@ -58,58 +105,76 @@ import os
 
 ---
 
-## 🧠 How It Works
+## 🔍 How the Pipeline Works
 
-1. **Model setup**
-   - `BaseOptions(model_asset_path='hand_landmarker.task')`
-   - `HandLandmarkerOptions(..., num_hands=2)`
-   - Create detector via `vision.HandLandmarker.create_from_options(...)`
+### 1) Model Initialization
+- `BaseOptions(model_asset_path='hand_landmarker.task')`
+- `HandLandmarkerOptions(num_hands=2, ...)`
+- `vision.HandLandmarker.create_from_options(...)`
 
-2. **Video input**
-   - OpenCV reads frames from `video1.mp4`
+### 2) Video Capture
+- Open video stream using OpenCV:
+  - `cv2.VideoCapture("video1.mp4")`
 
-3. **Detection**
-   - Each BGR frame is converted to RGB
-   - Frame is wrapped as `mp.Image`
-   - `detector.detect(...)` returns landmark + handedness results
+### 3) Per-frame Detection
+- Convert frame from **BGR → RGB**
+- Wrap frame into `mp.Image`
+- Run `detector.detect(...)`
 
-4. **Visualization**
-   - Landmarks and connections are drawn
-   - Left/Right handedness text is rendered near each detected hand
+### 4) Visualization
+- Draw landmarks and hand skeleton connections
+- Render handedness text near hand bounding area
 
-5. **Display loop**
-   - Annotated frame is shown in a window
-   - Press **Esc** to exit
-
----
-
-## 🧮 Variables and Values Explained
-
-In `index.py`:
-
-- `MARGIN = 10`: pixel offset for label position
-- `FONT_SIZE = 1`: OpenCV label font scale
-- `FONT_THICKNESS = 1`: label stroke thickness
-- `HANDEDNESS_TEXT_COLOR = (88, 205, 54)`: BGR color for label text
-- `num_hands = 2` (inside `HandLandmarkerOptions`): maximum hands to detect
-- `model_asset_path = 'hand_landmarker.task'`: path to landmarker model file
-- `VideoCapture("video1.mp4")`: input source video file
+### 5) Real-time Display
+- Show output in a window (`Image`)
+- Press **Esc** to quit
 
 ---
 
-## 🔧 Configuration / Adjustment Options
+## 🧮 Key Variables Explained
 
-You can tune behavior by editing `index.py`:
+Inside `index.py`:
 
-- **Detect more/fewer hands**
-  - Change `num_hands=2`
-- **Use webcam instead of file**
-  - In `index.py`, replace `cv2.VideoCapture("video1.mp4")` with `cv2.VideoCapture(0)`.
-  - `0` is commonly the default camera index; try `1` or `2` if needed on your system.
-- **Change label appearance**
-  - Update `FONT_SIZE`, `FONT_THICKNESS`, `HANDEDNESS_TEXT_COLOR`
-- **Change model path**
-  - Update `model_asset_path` if model file location changes
+- `MARGIN = 10` → Label offset in pixels
+- `FONT_SIZE = 1` → Label text scale
+- `FONT_THICKNESS = 1` → Label line thickness
+- `HANDEDNESS_TEXT_COLOR = (88, 205, 54)` → Label color in **BGR**
+- `num_hands = 2` → Max number of hands to detect
+- `model_asset_path = 'hand_landmarker.task'` → Model path
+- `cv2.VideoCapture("video1.mp4")` → Input source file
+
+---
+
+## 🎛️ Customization Options
+
+### 👥 Detect more/fewer hands
+Change:
+```python
+num_hands=2
+```
+
+### 📷 Use webcam instead of video file
+Replace:
+```python
+cv2.VideoCapture("video1.mp4")
+```
+with:
+```python
+cv2.VideoCapture(0)
+```
+> If needed, try camera indices `1` or `2`.
+
+### 🎨 Change label appearance
+Modify:
+- `FONT_SIZE`
+- `FONT_THICKNESS`
+- `HANDEDNESS_TEXT_COLOR`
+
+### 🧭 Move model file
+Update:
+```python
+model_asset_path = "path/to/hand_landmarker.task"
+```
 
 ---
 
@@ -119,64 +184,92 @@ You can tune behavior by editing `index.py`:
 python index.py
 ```
 
-What you should see:
-- A window titled **Image**
-- Hand landmarks and hand-connection lines over detected hands
-- Left/Right handedness labels
-- Exit by pressing **Esc**
+### 👀 Expected On-screen Output
+
+- Window title: **Image**
+- Hand landmarks + connection lines
+- Handedness labels (`Left` / `Right`)
+- Exit with **Esc**
 
 ---
 
-## ✅ Expected Output / Results
+## ✅ Expected Results
 
-When a hand is visible in the input video:
-- up to 2 hands are detected (as configured)
-- each hand is annotated with landmarks + skeletal connections
-- handedness classification (`Left` / `Right`) is shown near the hand
+When hands are visible in the video:
+
+- Up to 2 hands detected (current config)
+- Each hand gets:
+  - 21 landmarks
+  - skeleton/connection overlay
+  - handedness label
 
 ---
 
 ## 🛠️ Troubleshooting
 
-- **`ModuleNotFoundError` for mediapipe/cv2/numpy**
-  - Activate your virtual environment and reinstall dependencies.
+### ❌ `ModuleNotFoundError` (`mediapipe`, `cv2`, `numpy`)
+- Activate virtual environment
+- Reinstall dependencies
 
-- **Model file error (cannot find `hand_landmarker.task`)**
-  - Make sure the file is in project root or update `model_asset_path`.
+### ❌ Model file not found (`hand_landmarker.task`)
+- Ensure file exists in project root
+- Or update `model_asset_path`
 
-- **Video not opening / blank window**
-  - Confirm `video1.mp4` exists and is readable.
-  - Try another video path.
+### ❌ Video not opening / blank frame
+- Verify `video1.mp4` exists and is readable
+- Try another video path
 
-- **Window does not appear (headless/server environment)**
-  - `cv2.imshow` requires GUI support. Run locally with desktop display.
+### ❌ No display window appears
+- `cv2.imshow` requires GUI support
+- Run locally (not in headless server/SSH-only env)
 
-- **No detection shown**
-  - Ensure hands are visible, clear, and not heavily occluded in frames.
+### ❌ No landmarks detected
+- Ensure hands are visible, clear, and not heavily occluded
+- Improve lighting / reduce motion blur
 
----
-
-## 📝 Usage Notes
-
-- This is a simple, educational baseline implementation.
-- The script currently processes a local video file frame-by-frame.
-- ⚠️ Known limitation: the script assumes successful frame reads and may stop with an OpenCV `cvtColor` error if the input is invalid, unreadable, or ends unexpectedly.
-- For production apps, consider adding:
-  - graceful frame-read failure handling when `ret` is `False`
-  - confidence thresholds and error handling
-  - CLI arguments for model/video paths
+### ❌ OpenCV `cvtColor` crash near video end
+- Current script may not guard `ret == False`
+- Add frame-read checks before processing
 
 ---
 
-## 📂 Repository Files (current)
+## 🚧 Known Limitation
 
-- `index.py` → main script
-- `hand_landmarker.task` → MediaPipe model
-- `video1.mp4` → sample input video
-- `hand.jpg` → sample image asset
+Current baseline may fail if a frame read is invalid (`ret == False`) and still attempts color conversion.  
+For production-quality robustness, add:
+- graceful frame-read validation
+- confidence filtering
+- exception handling
+- CLI arguments for input/model paths
+
+---
+
+## 🚀 Suggested Next Improvements
+
+- [ ] Add command-line args (`--video`, `--model`, `--num-hands`)
+- [ ] Save annotated output video (`cv2.VideoWriter`)
+- [ ] Add FPS counter overlay
+- [ ] Add gesture classification module
+- [ ] Support image mode + webcam mode switch
+- [ ] Add logging + error diagnostics
 
 ---
 
 ## 🤝 Contributing
 
-Feel free to open an issue or submit a PR to improve performance, robustness, or usability.
+Contributions are welcome!  
+Feel free to open an issue or submit a PR for improvements in:
+- performance ⚡
+- robustness 🛡️
+- readability 📚
+- features ✨
+
+---
+
+## 📜 License
+
+You can add an open-source license (e.g., MIT) to clarify usage rights for others.
+
+---
+
+<p align="center"><b>Made with ❤️ using MediaPipe + OpenCV</b></p>
